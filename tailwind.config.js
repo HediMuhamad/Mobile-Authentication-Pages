@@ -4,8 +4,12 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    backgroundImage: {
+      'background-pattern': "url('../public/assets/pattern.png')"
+    }
   },
   plugins: [
     require('tailwindcss'),
-    require('autoprefixer'),],
+    require('autoprefixer'),
+  ],
 }
