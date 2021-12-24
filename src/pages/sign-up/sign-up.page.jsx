@@ -7,7 +7,7 @@ import { TextField } from '../../components/text-field/text-field.components';
 import { Button } from '../../components/button/button.component.jsx'
 
 //authentication
-import { authUpWithEmailAndPassword, authOut } from '../../firebase/withEmailAndPassword'
+import { authUpWithEmailAndPassword, authOut } from '../../firebase/authentication'
 import { Description } from '../../components/description/description.component.jsx';
 
 //Confirmation Functions
@@ -32,6 +32,7 @@ class SignInPage extends React.Component {
     }
 
 
+    buttonTriggered = false;
     buttonDisabled = () => {
         return (
             !this.state.username                          ||
@@ -41,14 +42,17 @@ class SignInPage extends React.Component {
             !this.state.password                          ||
             !isPasswordStrong(this.state.password)        ||
             !(this.state.confirm === this.state.password) ||
-            !this.state.securityNote
+            !this.state.securityNote                      ||
+            this.buttonTriggered
         )
     }
 
     // Handlers
     buttonEventHandler = async (event) => {
+        this.buttonTriggered = true;
         const currentUser = await authUpWithEmailAndPassword(this.state.email, this.state.password);
         this.currentUserHandler(currentUser);
+        setTimeout(() => { this.buttonTriggered = false; }, 500);
     }
     onTextFieldChangeHandler = (event) => { this.setState({[event.target.name]:event.target.value}); }
     currentUserHandler = (user) => { this.props.currentUserHandler(user) }
@@ -97,7 +101,7 @@ class SignInPage extends React.Component {
                 />
  
                 <Button
-                    className={` ${ this.buttonDisabled() ? 'pointer-events-none bg-red-500/50':''} w-10/12 mt-8 mb-2 py-3 text-base rounded-md bg-red-500/90 text-white`}
+                    className={` ${ this.buttonDisabled() ? 'pointer-events-none bg-red-400/80':'bg-red-500/90'} w-10/12 mt-8 mb-2 py-3 text-base rounded-md text-white`}
                     onClick={this.buttonEventHandler}
                 >Sign up</Button>
 

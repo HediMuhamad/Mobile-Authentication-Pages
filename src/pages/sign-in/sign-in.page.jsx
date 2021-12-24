@@ -11,7 +11,7 @@ import { faGooglePlusSquare , faFacebookSquare, faTwitterSquare } from '@fortawe
 import { isEmail} from '../sign-up/sign-up.page'
 
 //Authentication
-import { authInWithEmailAndPassword, authOut } from '../../firebase/withEmailAndPassword'
+import { authInWithEmailAndPassword, authOut } from '../../firebase/authentication'
 
 class SignInPage extends React.Component {
 
@@ -24,17 +24,21 @@ class SignInPage extends React.Component {
         };
     }
 
+    buttonTriggered = false;
     buttonDisabled = () => {
       return (
         this.state.email &&
         this.state.password &&
-        isEmail(this.state.email)
+        isEmail(this.state.email) &&
+        !this.buttonTriggered
       )
     }
 
-    buttonEventHandler = (event) => {
-      const currentUser = authInWithEmailAndPassword(this.state.email, this.state.password);
+    buttonEventHandler = async (event) => {
+      this.buttonTriggered = true;
+      const currentUser = await authInWithEmailAndPassword(this.state.email, this.state.password);
       this.currentUserHandler(currentUser);
+      setTimeout(() => { this.buttonTriggered = false; }, 500);
     }
     onTextFieldChangeHandler = (event) => { this.setState({[event.target.name]: event.target.value});}
     currentUserHandler = (user) => { this.props.currentUserHandler(user) }
@@ -66,7 +70,7 @@ class SignInPage extends React.Component {
                 </Description>
     
                 <Button
-                  className={` ${ this.buttonDisabled() ? '':'pointer-events-none bg-red-500/50'} w-10/12 my-8 py-3 text-md rounded-md bg-red-500/90 text-white`}
+                  className={` ${ this.buttonDisabled() ? 'bg-red-500/90':'pointer-events-none bg-red-400/80'} w-10/12 my-8 py-3 text-md rounded-md text-white`}
                   onClick={this.buttonEventHandler}
                 >Sign in</Button>
                 

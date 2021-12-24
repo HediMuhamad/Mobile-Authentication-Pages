@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 //Authentications
-import authStateChanged from './firebase/withEmailAndPassword';
+import authStateChanged from './firebase/authentication';
 
 //Pages
 import SignInPage from './pages/sign-in/sign-in.page';
@@ -27,7 +27,8 @@ class App extends React.Component {
   }
 
   // To change currentUser state from other pages and Authentication handler function.
-  currentUserHandler = (user) => { this.setState({currentUser: user}); }
+  currentUserHandler = async (user) => { await user ? this.setState({currentUser: user}) : this.setState({currentUser: user});
+  }
 
   render(){
     return (
