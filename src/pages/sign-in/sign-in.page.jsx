@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGooglePlusSquare , faFacebookSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
 import { isEmail, isPasswordStrong} from '../sign-up/sign-up.page'
 
+
 class SignInPage extends React.Component {
 
     constructor(){
@@ -88,7 +89,6 @@ class SignInPage extends React.Component {
           </MobileLayout>
         );
       }
-
 }
 
 export default SignInPage;
