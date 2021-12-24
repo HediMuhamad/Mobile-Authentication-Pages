@@ -33,7 +33,7 @@ class App extends React.Component {
     return (
       <div className="flex flex-col justify-center items-center w-full h-full relative z-10
       before:w-full before:h-full before:content-[''] before:absolute before:-z-10 before:bg-background-pattern before:bg-blue-400/20 before:opacity-10">
-        <Route exact path={'/'} component={SignInPage}></Route>
+        <Route exact path={'/'}         render={(props) => <SignInPage currentUserHandler={this.currentUserHandler} currentUser={this.state.currentUser} />}></Route>
         <Route exact path={'/register'} render={(props) => <SignUpPage currentUserHandler={this.currentUserHandler} currentUser={this.state.currentUser} />}></Route>
       </div>
     )

@@ -8,15 +8,17 @@ import { Description } from '../../components/description/description.component.
 import { Button } from '../../components/button/button.component.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGooglePlusSquare , faFacebookSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
-import { isEmail, isPasswordStrong} from '../sign-up/sign-up.page'
+import { isEmail} from '../sign-up/sign-up.page'
 
+//Authentication
+import { authInWithEmailAndPassword, authOut } from '../../firebase/withEmailAndPassword'
 
 class SignInPage extends React.Component {
 
-    constructor(){
+    constructor(props){
         super();
+        this.props = props;
         this.state={
-            user:'',
             email:'',
             password:'',
         };
@@ -26,13 +28,20 @@ class SignInPage extends React.Component {
       return (
         this.state.email &&
         this.state.password &&
-        isEmail(this.state.email) &&
-        isPasswordStrong(this.state.password)
+        isEmail(this.state.email)
       )
     }
 
+    buttonEventHandler = (event) => {
+      const currentUser = authInWithEmailAndPassword(this.state.email, this.state.password);
+      this.currentUserHandler(currentUser);
+    }
+    onTextFieldChangeHandler = (event) => { this.setState({[event.target.name]: event.target.value});}
+    currentUserHandler = (user) => { this.props.currentUserHandler(user) }
+
     render(){
         return (
+          this.props.currentUser ? <h1 className='text-lg text-center' onClick={authOut}>you are in<br/>click to exit</h1> :
             <MobileLayout className="aspect-[1/1.9] bg-slate-50">
                 
                 <TextContent
@@ -42,14 +51,14 @@ class SignInPage extends React.Component {
                   className='items-center justify-center gap-3 h-48'
                 />
     
-                <TextField placeholder="Email" type='text' name="username"
+                <TextField placeholder="Email" type='email' name="email"
                   className={`my-3 ${!this.state.email || isEmail(this.state.email) ? '':'ring-1 text-red-700/50 ring-red-700'}`}
-                  onChange={(event)=>{this.setState({email:event.target.value})}}
+                  onChange={this.onTextFieldChangeHandler}
                 />
                 
                 <TextField placeholder="Password" type='password' name="password"
-                  className={`my-3 tracking-wider ${!this.state.password || isPasswordStrong(this.state.password) ? '':'ring-1 text-red-700/50 ring-red-700'}`}
-                  onChange={(event)=>{this.setState({password:event.target.value})}}
+                  className={`my-3 tracking-wider`}
+                  onChange={this.onTextFieldChangeHandler}
                 />
                 
                 <Description className="text-right text-xs w-10/12 mt-1">
@@ -58,7 +67,7 @@ class SignInPage extends React.Component {
     
                 <Button
                   className={` ${ this.buttonDisabled() ? '':'pointer-events-none bg-red-500/50'} w-10/12 my-8 py-3 text-md rounded-md bg-red-500/90 text-white`}
-                  onClick={this.signin}
+                  onClick={this.buttonEventHandler}
                 >Sign in</Button>
                 
                 <Description className="text-xs w-10/12 my-4">ــــــــــــــــ Or continue with ــــــــــــــــ</Description>
