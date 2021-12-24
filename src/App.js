@@ -7,6 +7,7 @@ import authStateChanged from './firebase/authentication';
 //Pages
 import SignInPage from './pages/sign-in/sign-in.page';
 import SignUpPage from './pages/sign-up/sign-up.page';
+import PasswordRecovery from './pages/password-recovery/password-recovery.page'
 
 class App extends React.Component {
 
@@ -36,6 +37,7 @@ class App extends React.Component {
       before:w-full before:h-full before:content-[''] before:absolute before:-z-10 before:bg-background-pattern before:bg-blue-400/20 before:opacity-10">
         <Route exact path={'/'}         render={(props) => <SignInPage currentUserHandler={this.currentUserHandler} currentUser={this.state.currentUser} />}></Route>
         <Route exact path={'/register'} render={(props) => <SignUpPage currentUserHandler={this.currentUserHandler} currentUser={this.state.currentUser} />}></Route>
+        <Route exact path={'/password-recovery'} render={(props) => <PasswordRecovery currentUser={this.state.currentUser} />}></Route>
       </div>
     )
   }

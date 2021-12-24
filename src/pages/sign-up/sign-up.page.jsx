@@ -1,19 +1,14 @@
 import React from 'react';
 
-//components
+//Components
 import { MobileLayout } from '../../components/mobile-layout/mobile-layout-component.jsx';
 import { TextContent } from '../../components/text-content/text-content.component.jsx'
 import { TextField } from '../../components/text-field/text-field.components';
 import { Button } from '../../components/button/button.component.jsx'
-
-//authentication
-import { authUpWithEmailAndPassword, authOut } from '../../firebase/authentication'
 import { Description } from '../../components/description/description.component.jsx';
 
-//Confirmation Functions
-const zxcvbn = require('zxcvbn');
-export const isEmail = (text) => (text.includes('@')&&text.charAt(0)!=='@'&&text.charAt(text.length-1)!=='@'&&text.charAt(text.length-1)!=='.') ? true :  false;
-export const isPasswordStrong = (password) => (zxcvbn(password).score===4) ? true : false;
+//Functions
+import { isEmail, isPasswordStrong ,authUpWithEmailAndPassword, authOut } from '../../firebase/authentication'
 
 class SignInPage extends React.Component {
 

@@ -6,12 +6,13 @@ import { TextContent } from '../../components/text-content/text-content.componen
 import { TextField } from '../../components/text-field/text-field.components';
 import { Description } from '../../components/description/description.component.jsx'
 import { Button } from '../../components/button/button.component.jsx'
+
+//Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGooglePlusSquare , faFacebookSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
-import { isEmail} from '../sign-up/sign-up.page'
 
-//Authentication
-import { authInWithEmailAndPassword, authOut } from '../../firebase/authentication'
+//Functions
+import {isEmail, authInWithEmailAndPassword, authOut } from '../../firebase/authentication'
 
 class SignInPage extends React.Component {
 
