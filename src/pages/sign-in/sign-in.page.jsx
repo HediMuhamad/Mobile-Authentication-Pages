@@ -2,17 +2,18 @@ import React from 'react';
 
 //components
 import { MobileLayout } from '../../components/mobile-layout/mobile-layout-component.jsx';
-import { TextContent } from '../../components/text-content/text-content.component.jsx'
-import { TextField } from '../../components/text-field/text-field.components';
-import { Description } from '../../components/description/description.component.jsx'
-import { Button } from '../../components/button/button.component.jsx'
+import { TextContent }  from '../../components/text-content/text-content.component.jsx'
+import { TextField }    from '../../components/text-field/text-field.components';
+import { Description }  from '../../components/description/description.component.jsx'
+import { Button }       from '../../components/button/button.component.jsx'
 
 //Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGooglePlusSquare , faFacebookSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
 
 //Functions
-import {isEmail, authInWithEmailAndPassword, authOut } from '../../firebase/authentication'
+//Email Authentications
+import { isEmail, authInWithEmailAndPassword, Providers, authWithRedirection, authOut, } from '../../firebase/authentication'
 
 class SignInPage extends React.Component {
 
@@ -43,6 +44,11 @@ class SignInPage extends React.Component {
     }
     onTextFieldChangeHandler = (event) => { this.setState({[event.target.name]: event.target.value});}
     currentUserHandler = (user) => { this.props.currentUserHandler(user) }
+
+    //Authentication with Providers method
+    googleButtonEventHandler = async (event) => { authWithRedirection(Providers.GOOGLE); }
+    twitterButtonEventHandler = async (event) => { authWithRedirection(Providers.TWITTER); }
+    facebookButtonEventHandler = async (event) => { authWithRedirection(Providers.TWITTER); }
 
     render(){
         return (
@@ -81,7 +87,7 @@ class SignInPage extends React.Component {
                 <div className='w-9/12 flex justify-evenly items-center h-12 mt-1'>
                   <FontAwesomeIcon icon={faGooglePlusSquare}
                     className='text-4xl text-gray-900/80 hover:text-gray-900 hover:-translate-y-[0.025em] transition-all duration-100 ease-in'
-                    onClick={()=>{console.log('faGooglePlusSquare');}}
+                    onClick={this.googleButtonEventHandler}
                   />
 
                   <FontAwesomeIcon icon={faFacebookSquare}  

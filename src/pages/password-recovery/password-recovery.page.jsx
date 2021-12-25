@@ -2,17 +2,17 @@ import React from "react";
 
 //Components
 import { MobileLayout } from "../../components/mobile-layout/mobile-layout-component";
-import { TextContent } from "../../components/text-content/text-content.component";
-import { TextField } from "../../components/text-field/text-field.components";
-import { Button } from "../../components/button/button.component";
-import { Description } from "../../components/description/description.component";
+import { TextContent }  from "../../components/text-content/text-content.component";
+import { TextField }    from "../../components/text-field/text-field.components";
+import { Button }       from "../../components/button/button.component";
+import { Description }  from "../../components/description/description.component";
 
 //Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFingerprint } from '@fortawesome/free-solid-svg-icons'
 
 //Functions
-import {isEmail, authPasswordRecovery, authOut } from "../../firebase/authentication";
+import { isEmail, authPasswordRecovery, authOut } from "../../firebase/authentication";
 
 class PasswordRecovery extends React.Component {
     
@@ -39,7 +39,7 @@ class PasswordRecovery extends React.Component {
                 
                 <TextContent
                   headerText="Don't Worry"
-                  paragraphText={["Take your reset password",<br key={1}/>,"link from your email."]}
+                  paragraphText={["Take your password reset",<br key={1}/>,"link from your email."]}
                   paragraphTextStyle='text-xl'
                   className='items-center justify-center gap-3 h-48'
                 />

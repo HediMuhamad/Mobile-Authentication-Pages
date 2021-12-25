@@ -2,10 +2,10 @@ import React from 'react';
 
 //Components
 import { MobileLayout } from '../../components/mobile-layout/mobile-layout-component.jsx';
-import { TextContent } from '../../components/text-content/text-content.component.jsx'
-import { TextField } from '../../components/text-field/text-field.components';
-import { Button } from '../../components/button/button.component.jsx'
-import { Description } from '../../components/description/description.component.jsx';
+import { TextContent }  from '../../components/text-content/text-content.component.jsx'
+import { TextField }    from '../../components/text-field/text-field.components';
+import { Button }       from '../../components/button/button.component.jsx'
+import { Description }  from '../../components/description/description.component.jsx';
 
 //Functions
 import { isEmail, isPasswordStrong ,authUpWithEmailAndPassword, authOut } from '../../firebase/authentication'
