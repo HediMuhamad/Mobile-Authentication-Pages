@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 
 //components
@@ -9,11 +10,11 @@ import { Button }       from '../../components/button/button.component.jsx'
 
 //Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGooglePlusSquare , faFacebookSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
+import { faGooglePlusSquare , faFacebookSquare, faGithubSquare } from '@fortawesome/free-brands-svg-icons'
 
 //Functions
 //Email Authentications
-import { isEmail, authInWithEmailAndPassword, Providers, authWithRedirection, authOut, } from '../../firebase/authentication'
+import { isEmail, authInWithEmailAndPassword, Providers, authWithRedirection, authWithPopUp, authOut, } from '../../firebase/authentication'
 
 class SignInPage extends React.Component {
 
@@ -47,8 +48,9 @@ class SignInPage extends React.Component {
 
     //Authentication with Providers method
     googleButtonEventHandler = async (event) => { authWithRedirection(Providers.GOOGLE); }
+    githubButtonEventHandler = async (event) => { authWithRedirection(Providers.GITHUB); }
     twitterButtonEventHandler = async (event) => { authWithRedirection(Providers.TWITTER); }
-    facebookButtonEventHandler = async (event) => { authWithRedirection(Providers.TWITTER); }
+    facebookButtonEventHandler = async (event) => { authWithRedirection(Providers.FACEBOOK); }
 
     render(){
         return (
@@ -92,12 +94,12 @@ class SignInPage extends React.Component {
 
                   <FontAwesomeIcon icon={faFacebookSquare}  
                     className='text-4xl text-gray-900/80 hover:text-gray-900 hover:-translate-y-[0.025em] transition-all duration-100 ease-in'
-                    onClick={()=>{console.log('faFacebookSquare');}}
+                    onClick={this.facebookButtonEventHandler}
                   />
 
-                  <FontAwesomeIcon icon={faTwitterSquare}   
+                  <FontAwesomeIcon icon={faGithubSquare}   
                     className='text-4xl text-gray-900/80 hover:text-gray-900 hover:-translate-y-[0.025em] transition-all duration-100 ease-in'
-                    onClick={()=>{console.log('faTwitterSquare');}}
+                    onClick={this.githubButtonEventHandler}
                   />
 
                 </div>

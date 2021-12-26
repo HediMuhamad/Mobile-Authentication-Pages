@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-unused-vars
 import initialization from './fire-config'; //just used to trigger 'initialization' method from fire-config file
 import {getAuth, signOut, onAuthStateChanged,
         createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,
         signInWithRedirect, getRedirectResult, signInWithPopup,
-        GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider,} from 'firebase/auth';
+        GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider,} from 'firebase/auth';
 
 const auth = getAuth();
 
@@ -56,31 +57,48 @@ export const authPasswordRecovery = async (email) => {
 //enum of provider
 export const Providers = {
     GOOGLE: Symbol('GOOGLE'),
+    GITHUB: Symbol('GITHUB'),
     TWITTER: Symbol('TWITTER'),
     FACEBOOK: Symbol('FACEBOOK'),
 }
 
 //Providers
 const googleIsProvider = new GoogleAuthProvider();
+const githubIsProvider = new GithubAuthProvider();
 const facebookIsProvider = new FacebookAuthProvider();
 const twitterIsProvider = new TwitterAuthProvider();
 
-/* Redirection method */
-export const authWithRedirection= async (providerEnum)=>{
-    const provider = providerEnum === Providers.GOOGLE ? googleIsProvider : 
-                     providerEnum === Providers.TWITTER ? twitterIsProvider :
-                     providerEnum === Providers.FACEBOOK ? facebookIsProvider : null;
+const extractProvider = (providerEnum) => {
+    return  providerEnum === Providers.GOOGLE ? googleIsProvider : 
+            providerEnum === Providers.GITHUB ? githubIsProvider :
+            providerEnum === Providers.TWITTER ? twitterIsProvider :
+            providerEnum === Providers.FACEBOOK ? facebookIsProvider : null;
+}
 
-    
+/* Start: Redirection method */
+export const authWithRedirection= async (providerEnum)=>{
+    const provider = extractProvider(providerEnum);
     await signInWithRedirect(auth, provider);
 }
 
 export const authWithRedirectionResult = async () => {
     try{
         const feedbackCredential = await getRedirectResult(auth);
-        return feedbackCredential.user;
+        return feedbackCredential;
     }catch(error){
         console.log(error);
     }
 }
+/* End: Redirection method */
+
+/* Start: Pop-up method */
+export const authWithPopUp = async (providerEnum) => {
+    const provider = extractProvider(providerEnum);
+    const credential = await signInWithPopup(auth, provider);
+    return credential
+}
+/* End: Pop-up method */
+
+/* End: Authentication with Providers */
+
 export default authStateChanged;
